@@ -1,0 +1,201 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('foto-latar.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden; 
+    box-sizing: border-box;
+}
+
+.love-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart {
+    position: absolute;
+    bottom: -20px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    transform: rotate(-45deg);
+}
+
+.heart::before, .heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 10px;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(-45deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(-45deg) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.heart {
+    animation: floatUp ease-in infinite;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.glass-box {
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(8x);
+    background: rgba(255, 4, 130, 0.2); 
+    border-radius: 5px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.205);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: left;
+    margin-bottom: 20px;
+    z-index: 10;
+}   
+
+.typing-text {
+    font-family: 'Pixelify Sans', cursive;
+    font-size: 24px;
+    color: #fff;
+    margin: 0;
+    letter-spacing: .15em;
+    display: inline-block;
+    white-space: pre-wrap;
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 4px;
+    height: 1.5em;
+    background-color: orange;
+    margin-left: 5px;
+    vertical-align: top;
+}
+
+.typing-cursor.blinking-caret {
+    animation: blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { opacity: 0 }
+    50% { opacity: 1 }
+}
+
+.next-button {
+    background-color: orange; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Pixelify Sans', cursive;
+    margin-top: 15px; 
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.next-button:hover {
+    background-color: darkorange;
+}
+
+.next-button.hidden {
+    display: none;
+}
+
+.next-button.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.bottom-right-image {
+    position: absolute;
+    bottom: 10px;
+    right: 100px;
+    z-index: 5;
+    animation: bounce 2s infinite alternate;
+}
+
+.bottom-right-image img {
+    width: 240px;
+    height: auto;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+@media (max-width: 768px) {
+    .glass-box {
+        width: 90%;
+        max-width: 300px;
+        margin: 0 auto 15px auto;
+        padding: 15px;
+    }
+    .typing-text {
+        font-size: 20px;
+    }
+    .next-button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    .bottom-right-image {
+        position: absolute;
+        bottom: 30px;
+        left: 30%;
+        transform: translateX(-50%);
+        width: 240px;
+        z-index: 5;
+    }
+    .bottom-right-image img {
+        width: 100%;
+        height: auto;
+    }
+    @keyframes bounce {
+        from { transform: translateX(-50%) translateY(0); }
+        to { transform: translateX(-50%) translateY(-10px); }
+    }
+}

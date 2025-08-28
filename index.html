@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Oci</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="love-background"></div>
+    <div class="container">
+        <div class="glass-box">
+            <h1 class="typing-text"></h1>
+            <span class="typing-cursor"></span>
+        </div>
+        
+        <button class="next-button hidden">Next</button>
+        
+        <div class="bottom-right-image">
+            <img src="foto-kecil.png" alt="Foto kecil">
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const typingText = document.querySelector(".typing-text");
+            const typingCursor = document.querySelector(".typing-cursor");
+            const nextButton = document.querySelector(".next-button");
+
+            const conversations = [
+                "Haloo Sayaangg.",
+                "Di sini aku gatau mau ngomong apaa, mungkin gabakal banyakk :(.",
+                "Pertama - tama aku mau ngucapin :",
+                "Selamat mengulang tanggal 29 untuk yang ke 28x nya sayaanggg (Bener ga?? hehe).",
+                "Semoga kamu bahagia terus yaaa !!.",
+                "Maaf kalo aku nya ga bisa ngasih sesuatu yang bagus :(",
+                "Tapi aku harap kamu suka sama kado ini.",
+                "Aku sayang kamu ocii :*",
+                "Semoga kita bisa terus bersamaa.",
+                "Dan semoga semua keinginan kita tercapai yaaa.",
+            ];
+            let currentConversation = 0;
+            let isTyping = false;
+
+            function startTyping(text) {
+                if (isTyping) return;
+                isTyping = true;
+                
+                nextButton.classList.remove("visible");
+                nextButton.classList.add("hidden");
+
+                typingText.textContent = "";
+                typingCursor.classList.add("blinking-caret");
+
+                let charIndex = 0;
+                const typingSpeed = 50;
+
+                const interval = setInterval(() => {
+                    if (charIndex < text.length) {
+                        typingText.textContent += text.charAt(charIndex);
+                        charIndex++;
+                    } else {
+                        clearInterval(interval);
+                        typingCursor.classList.remove("blinking-caret");
+                        nextButton.classList.remove("hidden");
+                        nextButton.classList.add("visible");
+                        isTyping = false;
+                    }
+                }, typingSpeed);
+            }
+
+            startTyping(conversations[currentConversation]);
+
+            nextButton.addEventListener("click", () => {
+                currentConversation++;
+                if (currentConversation < conversations.length) {
+                    startTyping(conversations[currentConversation]);
+                } else {
+                    typingText.textContent = "Love u ocii ❤️!";
+                    typingCursor.classList.remove("blinking-caret");
+                    nextButton.classList.remove("visible");
+                    nextButton.classList.add("hidden");
+                }
+            });
+
+            const loveBackground = document.querySelector('.love-background');
+            const maxHearts = 10;
+            let currentHearts = 0;
+
+            function createHeart() {
+                if (currentHearts >= maxHearts) return;
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+                heart.style.opacity = Math.random() * 0.5 + 0.5;
+
+                loveBackground.appendChild(heart);
+                currentHearts++;
+
+                heart.addEventListener('animationend', () => {
+                    heart.remove();
+                    currentHearts--;
+                });
+            }
+
+            setInterval(createHeart, 1000); 
+        });
+    </script>
+</body>
+</html>
